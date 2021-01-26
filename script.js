@@ -1,11 +1,7 @@
 const products = document.querySelectorAll('#product-name');
 const buttons = document.querySelectorAll('button');
-const productsBasket = {
-    'name': [],
-    'quantity': []
-};
-const basket = document.querySelector('.basket-list')
-
+const productsBasket = new Map();
+const basket = document.querySelector('.basket-list');
 
 
 
@@ -17,40 +13,50 @@ buttons.forEach((element, index) => {
         addProduct(e, index);
         clearBasket();
         addToBasket(productsBasket, index);
+        save();
+        
+        
      
     })
 });
 
 
-function addProduct(e, index){
+function addProduct(e, index) {
     let productName = products[index].textContent;
-    if (productsBasket.name.includes(productName)){
-        productsBasket.quantity[index]++;
-        return;
+    if (!productsBasket.has(productName)) {
+        productsBasket.set(productName, { 'quantity': 1, 'value': e.target.value });
+        
+    } else if (productsBasket.has(productName)) {
+        let temp = productsBasket.get(productName);
+        let count = temp.quantity
+        count++;
+        productsBasket.set(productName, { 'quantity': count, 'value': e.target.value });
+        
+        
     }
-    productsBasket.name.push(productName);
-    productsBasket.quantity[index] = 1;
 }
+
 
 function clearBasket() {
     basket.innerHTML = '';
 }
 
 function addToBasket(productsBasket, index) {
-    productsBasket.name.forEach((element, index) => {
-        let list = document.createElement('li')
-        list.appendChild(document.createTextNode(productsBasket.name[index]))
-        list.appendChild(document.createTextNode(productsBasket.quantity[index]))
-        basket.appendChild(list);
+    for (let key of productsBasket.keys()) {
+        let itemQuantity = productsBasket.get(key).quantity;
+        let itemValue = productsBasket.get(key).value;
+        let total = itemQuantity * itemValue;
+        let basketItem = `Item: ${key} Quantity: ${itemQuantity} Total: £${total}`
+         let list = document.createElement('li')
+        list.appendChild(document.createTextNode(basketItem));
+        basket.appendChild(list); 
         
+        
+        
+    }    
        
-   });
+    
+
  
-}
-
-
-
-
-
-
+};
 
