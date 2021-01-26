@@ -1,18 +1,19 @@
 const products = document.querySelectorAll('#product-name');
 const buttons = document.querySelectorAll('button');
-const productsBasket = new Map();
+let productsBasket = new Map();
 const basket = document.querySelector('.basket-list');
-
-
-
-
+const map = localStorage.getItem('myMap');
+if (map) {
+    productsBasket = new Map(JSON.parse(localStorage.myMap));    
+}
 
 
 buttons.forEach((element, index) => {
     element.addEventListener('click', (e) => {
+    
         addProduct(e, index);
         clearBasket();
-        addToBasket(productsBasket, index);
+        addToBasket(productsBasket);
         save();
         
         
@@ -41,7 +42,9 @@ function clearBasket() {
     basket.innerHTML = '';
 }
 
-function addToBasket(productsBasket, index) {
+function addToBasket(productsBasket) {
+    let runningTotal = 0;
+    let basketQuantity = 0
     for (let key of productsBasket.keys()) {
         let itemQuantity = productsBasket.get(key).quantity;
         let itemValue = productsBasket.get(key).value;
@@ -50,13 +53,22 @@ function addToBasket(productsBasket, index) {
          let list = document.createElement('li')
         list.appendChild(document.createTextNode(basketItem));
         basket.appendChild(list); 
-        
-        
+        runningTotal += total;
+        basketQuantity += itemQuantity;
+
         
     }    
        
+    document.querySelector('.total').innerText = `Total: £${runningTotal}`;
+    document.querySelector('.basket h2').textContent = `${basketQuantity} items in Basket`;
     
 
- 
 };
 
+
+
+function save() {
+    localStorage.myMap = JSON.stringify(Array.from(productsBasket.entries()));
+}
+
+addToBasket(productsBasket);
