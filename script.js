@@ -7,7 +7,6 @@ const basket = document.querySelector('.basket-list');
 const map = localStorage.getItem('myMap');
 const images = document.querySelectorAll('.product img');
 
-console.log(images);
 if (map) {
     productsBasket = new Map(JSON.parse(localStorage.myMap));    
 }
@@ -54,10 +53,10 @@ function addToBasket(productsBasket) {
     for (let key of productsBasket.keys()) {
         let itemQuantity = productsBasket.get(key).quantity;
         let itemValue = productsBasket.get(key).value;
-        let index = productsBasket.get(key).index; 
-        let image = images[index];
+        const index = productsBasket.get(key).index; 
+        const image = images[index];
         let imagesrc = image.getAttributeNode('src').nodeValue;
-        console.log(imagesrc)
+        console.log(image)
     
         
         let total = itemQuantity * itemValue;
