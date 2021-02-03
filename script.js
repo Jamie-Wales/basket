@@ -6,6 +6,8 @@ let productsBasket = new Map();
 const basket = document.querySelector('.basket-list');
 const map = localStorage.getItem('myMap');
 const images = document.querySelectorAll('.product img');
+const add = document.querySelectorAll('add');
+const remove = document.querySelectorAll('remove');
 
 if (map) {
     productsBasket = new Map(JSON.parse(localStorage.myMap));    
@@ -56,7 +58,7 @@ function addToBasket(productsBasket) {
         const index = productsBasket.get(key).index; 
         const image = images[index];
         let imagesrc = image.getAttributeNode('src').nodeValue;
-        console.log(image)
+        
     
         
         let total = itemQuantity * itemValue;
@@ -64,8 +66,7 @@ function addToBasket(productsBasket) {
         <img src ="${imagesrc}">
         <div class="product__text">
             <h2 id = "product-name">${key}</h2>
-            <h2>Quantity: ${itemQuantity}</h2>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, eveniet iure eum harum qui autem vitae eos at alias sapiente?</p>
+            <h3><i id="add" class="fas fa-plus"></i>Quantity: ${itemQuantity}<i id="remove" class="fas fa-minus"></i></h3>
             <p class="price">£${itemValue * itemQuantity}</p>
         </div>`
          let list = document.createElement('li')
@@ -102,5 +103,5 @@ icon.addEventListener('click', () => {
 
 })
 
-console.log(basketHTML);
+
 

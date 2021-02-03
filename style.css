@@ -54,11 +54,15 @@ body {
 }
 
 .basket .product__element {
-	height: 500px;
-	max-width: 300px;
+	height: 200px;
+	max-width: 250px;
 	color: #002e45;
 	margin: 10px;
+	padding: 0;
 	flex-shrink: 1;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
 }
 
 .product__element {
@@ -82,14 +86,19 @@ body {
 	background-color: #d5f2e3;
 }
 
-i {
+.header i {
 	font-size: 50px;
-	transition: all ease-in 0.3s;
+	transition: all ease-in 0.1s;
 }
 
-i:hover {
+.header i:hover {
 	transform: scale(1.3);
 	color: white;
+}
+
+.header i:active {
+	transform: scale(0.9);
+	color: #002e45;
 }
 
 .header__icon {
@@ -167,12 +176,21 @@ i:hover {
 .header__icon p {
 	position: absolute;
 	top: 30px;
+	left: 9.5px;
 }
 
 .basket__title {
-	margin: 20px 50px;
+	margin: 50px 50px;
 }
 
 .total {
-	margin: 20px 50px;
+	margin: 40px;
+}
+
+.basket ul {
+	height: 400px;
+}
+
+.basket i {
+	margin: 0 8px;
 }
